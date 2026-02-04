@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explainable AI Resume Screening System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: 500;
+            color: #333;
+            text-align: left;
+        }
+        input, textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus, textarea:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        button {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+        .error {
+            color: #f44336;
+            background: #ffebee;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Explainable AI Resume Screening System</h1>
+        <p>Upload a PDF resume and enter a job description to get a skill match score with explanations.</p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="error">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="POST" enctype="multipart/form-data">
+            <label for="resume">Upload Resume (PDF only, max 10MB):</label>
+            <input type="file" id="resume" name="resume" accept=".pdf" required>
+            
+            <label for="job_desc">Job Description:</label>
+            <textarea id="job_desc" name="job_desc" rows="5" placeholder="Enter the job description here..." required></textarea>
+            
+            <button type="submit">Analyze Resume</button>
+        </form>
+    </div>
+</body>
+</html>
